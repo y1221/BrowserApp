@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="BrowserApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BrowserApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="#FFEEEEF2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+    
+        <!--ページタイトル部分-->
+        <TextBlock Grid.Row="0" Margin="10,5" FontSize="18" TextTrimming="WordEllipsis" Text="{Binding Path=DocumentTitle, ElementName=WebView1, Mode=OneWay}"/>
+        
+        <!--Webページ表示部分-->
+        <WebView Grid.Row="1" x:Name="WebView1" NavigationCompleted="WebView1_NavigationCompleted"/>
+        
+        <!--メニュー部分-->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!--戻るボタン-->
+            <AppBarButton Grid.Column="0" x:Name="BackButton" Icon="Back" Margin="0,0,10,0" IsEnabled="{Binding Path=CanGoBack, ElementName=WebView1, Mode=OneWay}" Click="BackButton_Click"/>
+            
+            <!--アドレスバー-->
+            <TextBox Grid.Column="1" x:Name="TextBox1" VerticalAlignment="Center" Text="{Binding Path=Source, ElementName=WebView1, Mode=OneWay}" GotFocus="TextBox1_GotFocus"/>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <AppBarButton x:Name="GoButton" Icon="Go" IsCompact="True" Click="GoButton_Click"/>
+                <AppBarButton x:Name="RefreshButton" Icon="Refresh" IsCompact="True" Margin="20,0,0,0" Click="RefreshButton_Click"/>
+                <AppBarButton x:Name="ForwardButton" Icon="Forward" IsCompact="True" IsEnabled="{Binding Path=CanGoForward, ElementName=WebView1, Mode=OneWay}" Click="ForwardButton_Click"/>
+            </StackPanel>
+        </Grid>
+        
+    </Grid>
+</Page>
